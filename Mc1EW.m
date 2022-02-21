@@ -6,10 +6,10 @@ numOfWalls=2;
 Bf=125;
 Lf=125;
 wD = 125+25; % psf
-Wf = (wD*Bf*Lf); % lbs
+Wf = (wD*Bf*Lf); % lb
 % wL = 55; % psf
 % Wf=0.001*wD*Bf*Lf;
 % Wf = 1.0*(wD) + 0.25*(wL); % weight per floor
-g=32.2; %ft/sec^2
+g=32.2;
 
-mass=eye(numOfStories)*(Wf/g/numOfWalls); %lbft/sec^2 / ft/sec^2
+mass=eye(numOfStories)*(Wf/g/numOfWalls); %lb

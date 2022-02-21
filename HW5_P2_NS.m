@@ -30,7 +30,7 @@ accTfactor=M/0.5;
 
 % Calculate displacement for checking drift.
 Ht=((numOfFloors-1)*Hs)+Hs1;
-Wf=wD*Bf*Lf*0.001;
+Wf=wD*Bf*Lf;
 Wt=numOfFloors*Wf;
 
 % Calculate response spectrum.
@@ -143,10 +143,19 @@ FL
 
 % Magnify for redundancy.
 FL_AT=accTfactor*rho*FL
+
 % Determine Story Displacements
 FL1 = [FL(1) FL(4) FL(7) FL(10) FL(13) FL(16)];
-K_NS = Kc1NS();
-delta_el = FL1/(K_NS);
+
+% K_NS = diag(Kc1NS());
+% delta_el=zeros(6,1);
+% for c=1:numOfFloors
+%     delta_el(c)=FL1(c)/K_NS(c);
+% end
+
+Sd_1=Cs*w1^2; 
+delta_el=eigValues6x1*Sd_1;
+
 for c=1:numOfFloors
      delta(c) = Cd*delta_el(c)/Ie;
 end
@@ -229,7 +238,7 @@ hold off;
 subplot(1,5,5);
 hold on;
 title ('Story OTM')
-ylabel('Floors'), xlabel('Moment (lb-in)')
+ylabel('Floors'), xlabel('Moment (lb-ft)')
 grid on;
 yticks([0 1 2 3 4 5 6])
 plot([OTM(1) OTM'],0:6)

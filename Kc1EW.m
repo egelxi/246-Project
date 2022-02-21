@@ -2,10 +2,10 @@
 % Turns the 6 by 6 condensed stiffness matrix of the shear wall.
 
 numOfStories=6;
-tw=18; %in
-Lw=27*12; %in
-fpc=5000; %psi
-Ec=57*sqrt(fpc);%psi
+tw=18;
+Lw=27*12;
+fpc=5000;
+Ec=57*sqrt(fpc);
 
 stiffness=zeros(2*numOfStories+2,2*numOfStories+2);
 
@@ -14,9 +14,9 @@ for story=1:numOfStories
     elemNodesNumber=[story,story+1];
     
     if story==1
-        L=15*12; %in
+        L=15*12;
     else
-        L=12*12;
+        L=10.5*12;
     end
     
     EIz=0.8*Ec*(1/12)*(tw)*(Lw^3); % 0.8*Ig

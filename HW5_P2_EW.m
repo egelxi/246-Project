@@ -11,12 +11,12 @@ clear all;
 
 numOfWalls=2;
 numOfFloors=6;
-Hs1=15*12; % Height of Story 1
-Hs=10.5*12; % Height of Stories 2-6
+Hs1=15; % Height of Story 1
+Hs=10.5; % Height of Stories 2-6
 
-wD=(125+25)/144; % 125psf + 25psf superimposed
-Bf=125*12;
-Lf=125*12;
+wD=125+25; % 125psf + 25psf superimposed
+Bf=125;
+Lf=125;
 
 R=5;
 Cd=5;
@@ -30,7 +30,7 @@ accTfactor=M/0.5;
 
 % Calculate displacement for checking drift.
 Ht=((numOfFloors-1)*Hs)+Hs1;
-Wf=wD*Bf*Lf*0.001;
+Wf=wD*Bf*Lf;
 Wt=numOfFloors*Wf;
 
 % Calculate response spectrum.
@@ -143,10 +143,19 @@ FL
 FL_AT=accTfactor*rho*FL
 
 % Determine Story Displacements
-% FL1 = [FL(1) FL(4) FL(7) FL(10) FL(13) FL(16)];
+FL1 = [FL(1) FL(4) FL(7) FL(10) FL(13) FL(16)];
+
 % K_EW = Kc1EW();
 % delta_el = FL1/K_EW;
-delta_el = eigValues6x1'*(0.654);
+% K_EW = diag(Kc1EW());
+% delta_el=zeros(6,1);
+% for c=1:numOfFloors
+%     delta_el(c)=FL1(c)/K_(c);
+% end
+
+Sd_1=Cs*w1^2;
+delta_el=eigValues6x1*Sd_1;
+
 for c=1:numOfFloors
      delta(c) = Cd*delta_el(c)/Ie;
 end
@@ -228,7 +237,7 @@ hold off;
 subplot(1,5,5);
 hold on;
 title ('Story OTM')
-ylabel('Floors'), xlabel('Moment (lb-in)')
+ylabel('Floors'), xlabel('Moment (lb-ft)')
 grid on;
 yticks([0 1 2 3 4 5 6])
 plot([OTM(1) OTM'],0:6)
